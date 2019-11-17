@@ -24,15 +24,16 @@ services:
     image: postgres
     restart: always
     # Set volume so database not lost after shutting down container
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+    # volumes:
+    #   - ./postgres-data:/var/lib/postgresql/data
     # Setup username, password, and database name
     environment:
       - POSTGRES_USER=gorm
       - POSTGRES_PASSWORD=gorm
       - POSTGRES_DB=gorm
     ports:
-      - 5432:5432
+      # Map to localhost:5555 so no conflicts with local instance of postgres
+      - 5555:5432
 
   # Container to view db
   adminer:
