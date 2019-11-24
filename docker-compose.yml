@@ -17,7 +17,7 @@ services:
       - PG_HOST=db
 
   honeyclient:
-    build: csci4950tgt/honeyclient
+    image: csci4950tgt/honeyclient
     restart: always
     ports:
       - 8000:8000
