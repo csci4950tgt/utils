@@ -1,12 +1,27 @@
+### Uses hosted docker images for all containers. Nothing is locally built
+
 version: "3"
 services:
   api:
-    build: ./api
+    image: csci4950tgt/api
     restart: always
-    # Need to wait for postgres to start
-    command: ["./wait-for-it.sh", "db:5432", "--", "./api"]
     ports:
       - 8080:8080
+    # Need to wait for postgres to start
+    command: ["./wait-for-it.sh", "db:5432", "--", "./api"]
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - PG_HOST=db
+
+  honeyclient:
+    build: csci4950tgt/honeyclient
+    restart: always
+    ports:
+      - 8000:8000
+    # Need to wait for postgres to start
     depends_on:
       - db
     links:
@@ -15,7 +30,7 @@ services:
       - PG_HOST=db
 
   frontend:
-    build: ./frontend
+    image: csci4950tgt/frontend
     restart: always
     ports:
       - 3000:80
@@ -32,10 +47,9 @@ services:
       - POSTGRES_PASSWORD=gorm
       - POSTGRES_DB=gorm
     ports:
-      # Map to localhost:5555 so no conflicts with local instance of postgres
       - 5555:5432
 
-  # Container to view db
+  # Container to interact with db
   adminer:
     image: adminer
     restart: always
