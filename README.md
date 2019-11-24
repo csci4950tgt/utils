@@ -3,7 +3,9 @@
 ## Running web app with docker-compose
 
 1. Make sure you have docker installed locally.
-2. Run `docker-compose up`. This will use images hosted on Docker Hub (ex: our [API image](https://hub.docker.com/repository/docker/csci4950tgt/api)) that are
+2. Run `docker-compose pull` to ensure all services are using their most recent
+   images.
+3. Run `docker-compose up`. This will use images hosted on Docker Hub (ex: our [API image](https://hub.docker.com/repository/docker/csci4950tgt/api)) that are
    automatically built from each service's github master branch
 
 That should be it.
