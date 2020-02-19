@@ -19,3 +19,20 @@ To run with locally built images, do the following:
 
 2. Run `docker-compose -f docker-compose.development.yml up --build` (this will take a while to build the first time,
    runs using locally built images from subdirectories)
+
+## Running web app locally with bash script
+
+Currently only have a bash script that works on macs. Not sure if this works on linux.
+
+1. Make sure you have the `mac_run_service.sh` and `mac_cleanup_service.sh` scripts in a parent directory, in the same level as your `api`, `honeyclient`, and `frontend` repos.
+2. Run like so:
+
+   ```sh
+   sh mac_run_service.sh
+   ```
+
+3. The cleanup script isn't auto executing when you CTRL:C out of that command, so also run the cleanup script to kill any remaining processes from this service.
+
+   ```sh
+   sh mac_cleanup_service.sh
+   ```
