@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo Service shutting down...
 
 ### kill processes if still running
