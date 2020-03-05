@@ -15,19 +15,15 @@ services:
       - db
     environment:
       - PG_HOST=db
+      - HONEYCLIENT_STUB=${HONEYCLIENT_STUB}
 
   honeyclient:
     image: csci4950tgt/honeyclient
     restart: always
     ports:
       - 8000:8000
-    # Need to wait for postgres to start
-    depends_on:
-      - db
-    links:
-      - db
     environment:
-      - PG_HOST=db
+      - GOOGLE_SAFE_BROWSING_API_KEY=${GOOGLE_SAFE_BROWSING_API_KEY}
 
   frontend:
     image: csci4950tgt/frontend
@@ -39,13 +35,13 @@ services:
     image: postgres
     restart: always
     # Set volume so database not lost after shutting down container
-    # volumes:
-    #   - ./postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     # Setup username, password, and database name
     environment:
-      - POSTGRES_USER=gorm
-      - POSTGRES_PASSWORD=gorm
-      - POSTGRES_DB=gorm
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - 5555:5432
 
