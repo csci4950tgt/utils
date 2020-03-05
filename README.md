@@ -1,5 +1,16 @@
 # Utils
 
+**Prerequisites for running app**
+
+You must have the relevent .env files to run the app locally or with
+docker-compose.
+
+- If running with docker-compose, make sure the .env template found in this
+  `utils` repo is filled out and at the same level as the docker-compose.yml
+  file.
+- If running locally, make sure that you have a filled-in .env file inside the
+  `honeyclient`.
+
 ## Running web app with docker-compose
 
 1. Make sure you have docker installed locally.
