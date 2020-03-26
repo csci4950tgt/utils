@@ -5,9 +5,9 @@
 You must have the relevent .env files to run the app locally or with
 docker-compose.
 
-- If running with docker-compose, make sure the .env template found in this
-  `utils` repo is filled out and at the same level as the docker-compose.yml
-  file.
+- If running with docker-compose, copy the .env.template from this `utils` repo to a local .env 
+  file in the same directory as the docker-compose.yml file AND make sure the information in it is 
+  correct (the `GOOGLE_SAFE_BROWSING_API_KEY` should be shared with you in some way).
 - If running locally, make sure that you have a filled-in .env file inside the
   `honeyclient`.
 
