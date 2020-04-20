@@ -3,7 +3,11 @@
 version: "3"
 services:
   api:
-    build: ./api
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+      # args:
+      # arg1:
     restart: always
     ports:
       - 8080:8080
@@ -14,7 +18,12 @@ services:
     links:
       - db
     environment:
-      - PG_HOST=db
+      - PG_HOST=${PG_HOST}
+      - PG_PORT=${PG_PORT}
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_DB=${PG_DB}
+      - PG_PRODUCTION=${PG_PRODUCTION}
       - HONEYCLIENT_STUB=${HONEYCLIENT_STUB}
 
   honeyclient:
@@ -22,6 +31,7 @@ services:
     restart: always
     ports:
       - 8000:8000
+      # command: ["--cap-add=SYS_ADMIN"]
     environment:
       - GOOGLE_SAFE_BROWSING_API_KEY=${GOOGLE_SAFE_BROWSING_API_KEY}
 
@@ -29,7 +39,9 @@ services:
     build: ./frontend
     restart: always
     ports:
-      - 3000:80
+      - 3000:8080
+    environment:
+      - API_STUB=${API_STUB}
 
   db:
     image: postgres
@@ -39,9 +51,9 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     # Setup username, password, and database name
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DB}
     ports:
       # Map to localhost:5555 so no conflicts with local instance of postgres
       - 5555:5432
